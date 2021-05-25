@@ -549,6 +549,26 @@ void commands_process_packet(unsigned char *data, unsigned int len,
 		mempools_free_appconf(appconf);
 	} break;
 
+	case COMM_SET_APP_USE: {
+		app_configuration *appconf = mempools_alloc_appconf();
+		*appconf = *app_get_configuration();
+
+		app_use new_app_to_use;
+		new_app_to_use = data[0];
+		appconf->app_to_use = new_app_to_use;
+
+		conf_general_store_app_configuration(appconf);
+		app_set_configuration(appconf);
+		chThdSleepMilliseconds(200);
+
+		int32_t ind = 0;
+		uint8_t send_buffer[50];
+		send_buffer[ind++] = packet_id;
+		reply_func(send_buffer, ind);
+
+		mempools_free_appconf(appconf);
+	} break;
+
 	case COMM_SAMPLE_PRINT: {
 		uint16_t sample_len;
 		uint8_t decimation;

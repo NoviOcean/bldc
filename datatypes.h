@@ -924,6 +924,9 @@ typedef enum {
 	COMM_ERASE_BOOTLOADER_ALL_CAN_HW,
 
 	COMM_SET_ODOMETER,
+
+	// Commands to quickly change specific config parameters
+	COMM_SET_APP_USE,
 } COMM_PACKET_ID;
 
 // CAN commands
