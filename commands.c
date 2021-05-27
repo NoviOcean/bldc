@@ -560,12 +560,6 @@ void commands_process_packet(unsigned char *data, unsigned int len,
 		conf_general_store_app_configuration(appconf);
 		app_set_configuration(appconf);
 		chThdSleepMilliseconds(200);
-
-		int32_t ind = 0;
-		uint8_t send_buffer[50];
-		send_buffer[ind++] = packet_id;
-		reply_func(send_buffer, ind);
-
 		mempools_free_appconf(appconf);
 	} break;
 
